@@ -89,6 +89,9 @@ string binaryTreeUtility::outputBinaryTreeWithLevelOrderTraverse(TreeNode* node,
 
 
 int binaryTreeUtility::countNotNullTreeNode(TreeNode* node){
+	if(!node)
+		return 0;
+	
 	queue<TreeNode*> seq;
 	seq.push(node);
 	int count = 0;
