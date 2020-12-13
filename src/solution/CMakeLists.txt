@@ -1,17 +1,17 @@
-add_library(solution "")
+add_library(MinStack "")
 
 target_sources(
-    solution
+    MinStack
     PRIVATE
-        solution.cpp
+        MinStack.cpp
     PUBLIC
-        ${CMAKE_CURRENT_LIST_DIR}/solution.hpp
+        ${CMAKE_CURRENT_LIST_DIR}/MinStack.hpp
     )
 
 message(STATUS "the cmake current list dir is ${CMAKE_CURRENT_LIST_DIR}")
 
 target_include_directories(
-    solution
+    MinStack
     PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}
     )
