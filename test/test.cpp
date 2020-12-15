@@ -6,9 +6,8 @@ class SolutionMultipleParametersTests : public ::testing::TestWithParam<std::tup
 protected:
 	solution sol;
 };
-TEST_P(SolutionMultipleParametersTests, SolutionTwoSums)
-{
 
+TEST_P(SolutionMultipleParametersTests, SolutionTwoSums){
 	vector<int> inputData = std::get<0>(GetParam());
 	int inputTarget = std::get<1>(GetParam());
 
@@ -24,4 +23,5 @@ INSTANTIATE_TEST_SUITE_P(
 		std::make_tuple(vector<int>{2, 11, 18, 7, 15}, 13, vector<int>{0, 1}),
 		std::make_tuple(vector<int>{}, 0, vector<int>{}),
 		std::make_tuple(vector<int>{2, 11, 18, 7, 15}, 25, vector<int>{2, 3}),
-		std::make_tuple(vector<int>{2, 11, 18, 7, 15}, 0, vector<int>{})));
+		std::make_tuple(vector<int>{2, 11, 18, 7, 15}, 0, vector<int>{})
+	));
