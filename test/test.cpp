@@ -1,25 +1,54 @@
-#include "../src/solution/MinStack.hpp"
+#include "../src/solution/Solution.hpp"
 #include "gtest/gtest.h"
 #include <vector>
 #include <string>
+#include <regex>
 #include <unordered_map>
 using namespace std;
 
 
 class SolutionMultipleParametersTests : public ::testing::TestWithParam<std::tuple<vector<pair<string,string>>, vector<string>>> {
 protected:
-	MinStack* stack;
+	Solution* obj;
 	vector<string> utility(vector<pair<string,string>> inputs);
+	vector<int> convertStrToArray(string s);
+	string convertArrayToStr(const vector<int>& nums);
 private:
-	enum Action { init, push, pop, top, getmin };
+	enum Action { init, shuffle, reset };
 	unordered_map<string, Action> dict{ 
-		{ "MinStack", Action::init }, 
-		{ "push", Action::push },
-		{ "pop", Action::pop },
-		{ "top", Action::top },
-		{ "getMin", Action::getmin }
+		{ "Solution", Action::init }, 
+		{ "shuffle", Action::shuffle },
+		{ "reset", Action::reset }
 	};
 };
+
+vector<int> SolutionMultipleParametersTests::convertStrToArray(string s){
+	std::regex e ("([.]|[^.,]+)");
+	std::regex_iterator<std::string::iterator> rit ( s.begin()+1, s.end()-1, e );
+    std::regex_iterator<std::string::iterator> rend;
+    vector<int> result;
+	
+	while (rit!=rend) {
+		result.push_back(stoi(rit->str()));
+        ++rit;
+    }
+	return result;
+}
+
+
+string SolutionMultipleParametersTests::convertArrayToStr(const vector<int>& nums){
+	stringstream out;
+	
+	string delimiter = "";
+	out << "[";
+	for(auto& num : nums){
+		out << delimiter << num;
+		delimiter = ",";
+	}
+	out << "]";
+
+	return out.str();
+}
 
 vector<string> SolutionMultipleParametersTests::utility(vector<pair<string,string>> inputs){
 	vector<string> result;
@@ -27,26 +56,19 @@ vector<string> SolutionMultipleParametersTests::utility(vector<pair<string,strin
 		string input = commands.first;
 		string arg = commands.second;
 		Action action = dict[input];
-
+		vector<int> seq;
 		switch (action)
 		{
 		case Action::init:
-			stack = new MinStack();
-			result.push_back(stack ? "null":"");
-			break;
-		case Action::push:
-			stack->push(3);
+			seq = convertStrToArray(arg);
+			obj = new Solution(seq);
 			result.push_back("null");
 			break;
-		case Action::pop:
-			stack->pop();
-			result.push_back("null");
+		case Action::shuffle:
+			result.push_back(convertArrayToStr(obj->shuffle()));
 			break;
-		case Action::top:
-			result.push_back(std::to_string(stack->top()));
-			break;
-		case Action::getmin:
-			result.push_back(std::to_string(stack->getMin()));
+		case Action::reset:
+			result.push_back(convertArrayToStr(obj->reset()));
 			break;
 		default:
 			break;
@@ -55,7 +77,7 @@ vector<string> SolutionMultipleParametersTests::utility(vector<pair<string,strin
 	return result;
 }
 
-TEST_P(SolutionMultipleParametersTests, SolutionMinStack){
+TEST_P(SolutionMultipleParametersTests, SolutionShuffle){
 	vector<pair<string,string>> inputs = std::get<0>(GetParam());
 	vector<string> result = utility(inputs);
 	vector<string> expected = std::get<1>(GetParam());
@@ -64,17 +86,17 @@ TEST_P(SolutionMultipleParametersTests, SolutionMinStack){
 }
 
 INSTANTIATE_TEST_SUITE_P(
-	minStackTestProvider,
+	shuffleTestProvider,
 	SolutionMultipleParametersTests,
 	::testing::Values(
 		std::make_tuple(
 			vector<pair<string,string>>
 			{
-				{ "MinStack", ""}, { "push", "-2"}, { "push", "0"}, { "push", "-3"}, { "getMin", ""}, { "pop", ""}, { "top", ""}, { "getMin", ""}
+				{ "Solution", "[1,2,3]"}, { "shuffle", "[]"}, { "reset", "[]"}, { "shuffle", "[]"}
 			}, 
 			vector<string>
-			{
-				"null", "null", "null", "null", "-3", "null", "0", "-2" 
+			{	
+				"null", "[3,1,2]", "[1,2,3]", "[1,3,2]" 
 			}
 		)
 	));
