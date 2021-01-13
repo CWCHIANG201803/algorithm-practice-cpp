@@ -2,9 +2,9 @@
 using namespace std;
 
 
-class Solution {
+class solution {
 public:
-    Solution(vector<int>& nums);
+    solution(vector<int>& nums);
     vector<int> reset();
     vector<int> shuffle();
 };

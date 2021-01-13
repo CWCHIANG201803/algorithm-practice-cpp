@@ -1,4 +1,4 @@
-#include "../src/solution/Solution.hpp"
+#include "../src/solution/solution.hpp"
 #include "gtest/gtest.h"
 #include <vector>
 #include <string>
@@ -9,7 +9,7 @@ using namespace std;
 
 class SolutionMultipleParametersTests : public ::testing::TestWithParam<std::tuple<vector<pair<string,string>>, vector<string>>> {
 protected:
-	Solution* obj;
+	solution* obj;
 	vector<string> utility(vector<pair<string,string>> inputs);
 	vector<int> convertStrToArray(string s);
 	string convertArrayToStr(const vector<int>& nums);
@@ -61,7 +61,7 @@ vector<string> SolutionMultipleParametersTests::utility(vector<pair<string,strin
 		{
 		case Action::init:
 			seq = convertStrToArray(arg);
-			obj = new Solution(seq);
+			obj = new solution(seq);
 			result.push_back("null");
 			break;
 		case Action::shuffle:

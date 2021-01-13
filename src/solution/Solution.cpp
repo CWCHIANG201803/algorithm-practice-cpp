@@ -1,14 +1,14 @@
-#include "Solution.hpp"
+#include "solution.hpp"
 
 
-Solution::Solution(vector<int>& nums){
+solution::solution(vector<int>& nums){
 
 }
 
-vector<int> Solution::reset(){
+vector<int> solution::reset(){
     return {};
 }
 
-vector<int> Solution::shuffle(){
+vector<int> solution::shuffle(){
     return {};
 }

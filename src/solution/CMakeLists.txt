@@ -1,17 +1,17 @@
-add_library(Solution "")
+add_library(solution "")
 
 target_sources(
-    Solution
+    solution
     PRIVATE
-        Solution.cpp
+        solution.cpp
     PUBLIC
-        ${CMAKE_CURRENT_LIST_DIR}/Solution.hpp
+        ${CMAKE_CURRENT_LIST_DIR}/solution.hpp
     )
 
 message(STATUS "the cmake current list dir is ${CMAKE_CURRENT_LIST_DIR}")
 
 target_include_directories(
-    Solution
+    solution
     PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}
     )
