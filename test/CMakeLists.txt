@@ -1,13 +1,6 @@
-add_executable(
-    unit_tests
-		test.cpp
-    )
+add_executable(unit_tests test.cpp)
 
-target_link_libraries(
-    unit_tests
-    gtest_main
-		solution
-    )
+target_link_libraries(unit_tests gtest_main LFUCache)
 
 add_test(
   NAME
