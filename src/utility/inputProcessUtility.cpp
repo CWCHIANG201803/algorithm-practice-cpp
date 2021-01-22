@@ -84,11 +84,11 @@ vector<int> inputProcessUtility::convertToInt(vector<string> input){
 
 string inputProcessUtility::serializeToString(vector<vector<int>> input){
     stringstream out;
-    string token_inside = "";
     string token_outside = "";
     out << "[";
     for(int i = 0 ; i < input.size(); ++i){    
         out << token_outside << "[";
+        string token_inside = "";
         for(int j = 0 ; j < input[i].size(); ++j){
             out << token_inside << to_string(input[i][j]);
             token_inside = ",";
