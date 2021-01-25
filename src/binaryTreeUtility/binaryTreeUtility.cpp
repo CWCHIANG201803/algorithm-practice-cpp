@@ -154,3 +154,35 @@ void binaryTreeUtility::binaryTreeWithPostorderTraverse(TreeNode* node, vector<i
 
 	}
 }
+
+string binaryTreeUtility::serializeToString(vector<vector<int>> input){
+    stringstream out;
+    string token_outside = "";
+    out << "[";
+    for(int i = 0 ; i < input.size(); ++i){    
+        out << token_outside << "[";
+        string token_inside = "";
+        for(int j = 0 ; j < input[i].size(); ++j){
+            out << token_inside << to_string(input[i][j]);
+            token_inside = ",";
+        }
+        out << "]";
+        token_outside = ",";
+    }
+    out << "]";
+
+    return out.str();
+}
+
+string binaryTreeUtility::serializeToString(vector<int> input){
+    stringstream out;
+    string token_inside = "";
+    out << "[";
+    for(int i = 0 ; i < input.size(); ++i){    
+        out << token_inside << to_string(input[i]);
+        token_inside = ",";
+    }
+    out << "]";
+
+    return out.str();
+}

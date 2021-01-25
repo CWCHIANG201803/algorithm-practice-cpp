@@ -13,6 +13,8 @@ public:
 	TreeNode* buildBinaryTreeByLevelOrder(string& seq);
 	string outputBinaryTreeWithLevelOrderTraverse(TreeNode* node, bool display);
 	void displayBinaryTreeDFSTraverse(TreeNode*, binaryTreeUtility::DFSOption);
+	string serializeToString(vector<int> input);
+	string serializeToString(vector<vector<int>> input);
 private:
 	void trimLeftTrailingSpaces(string&);
 	void trimRightTrailingSpaces(string&);

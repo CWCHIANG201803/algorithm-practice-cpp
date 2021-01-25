@@ -8,5 +8,5 @@ using namespace std;
 class solution
 {
 public:
-	vector<vector<int>> zigzagLevelOrder(TreeNode *);
+	vector<vector<int>> zigzagLevelOrder(TreeNode* root);
 };

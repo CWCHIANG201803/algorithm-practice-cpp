@@ -5,7 +5,7 @@
 using namespace std;
 
 
-class SolutionMultipleParametersTests : public ::testing::TestWithParam<std::tuple<string, vector<vector<int>>>> {
+class SolutionMultipleParametersTests : public ::testing::TestWithParam<std::tuple<string, string>> {
 protected:
 	solution sol;
 	binaryTreeUtility utility;
@@ -14,15 +14,20 @@ protected:
 
 TEST_P(SolutionMultipleParametersTests, solutionZigzagLevelOrder) {
 	string input = std::get<0>(GetParam());
-	vector<vector<int>> expected = std::get<1>(GetParam());
-	ASSERT_EQ(expected, sol.zigzagLevelOrder(utility.buildBinaryTreeByLevelOrder(input)));
+	TreeNode* root = utility.buildBinaryTreeByLevelOrder(input);
+	
+	string result = utility.serializeToString(sol.zigzagLevelOrder(root));
+	string expected = std::get<1>(GetParam());
+	
+	ASSERT_EQ(expected, result);
 }
 
 INSTANTIATE_TEST_SUITE_P(
-	ZigzagLevelOrderSolution,
+	zigzagLevelOrderSolution,
 	SolutionMultipleParametersTests,
 	::testing::Values(
-		std::make_tuple("[3,9,20,null,null,15,7]", vector<vector<int>>{ {3}, { 20, 9 }, { 15, 7 }})
-	));
+		std::make_tuple("[3,9,20,null,null,15,7]", "[[3],[20,9],[15,7]]")
+	)
+);
 
 
