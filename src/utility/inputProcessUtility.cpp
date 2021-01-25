@@ -101,12 +101,44 @@ string inputProcessUtility::serializeToString(vector<vector<int>> input){
     return out.str();
 }
 
+string inputProcessUtility::serializeToString(vector<vector<string>> input){
+    stringstream out;
+    string token_outside = "";
+    out << "[";
+    for(int i = 0 ; i < input.size(); ++i){    
+        out << token_outside << "[";
+        string token_inside = "";
+        for(int j = 0 ; j < input[i].size(); ++j){
+            out << token_inside << input[i][j];
+            token_inside = ",";
+        }
+        out << "]";
+        token_outside = ",";
+    }
+    out << "]";
+
+    return out.str();
+}
+
 string inputProcessUtility::serializeToString(vector<int> input){
     stringstream out;
     string token_inside = "";
     out << "[";
     for(int i = 0 ; i < input.size(); ++i){    
         out << token_inside << to_string(input[i]);
+        token_inside = ",";
+    }
+    out << "]";
+
+    return out.str();
+}
+
+string inputProcessUtility::serializeToString(vector<string> input){
+    stringstream out;
+    string token_inside = "";
+    out << "[";
+    for(int i = 0 ; i < input.size(); ++i){    
+        out << token_inside << input[i];
         token_inside = ",";
     }
     out << "]";
