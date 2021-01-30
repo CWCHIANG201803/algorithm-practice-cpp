@@ -33,7 +33,7 @@ vector<vector<string>> inputProcessUtility::buildTwoDimensionalArray(string inpu
         }
         if(i < str.size() && str[i++]==','){  // "," at outer loop
             tokens.push_back(ss.str());
-            ss = {};
+            ss.str("");
         }
     }
     tokens.push_back(ss.str());
