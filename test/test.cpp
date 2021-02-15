@@ -6,16 +6,15 @@
 class SolutionMultipleParametersTests : public ::testing::TestWithParam<std::tuple<string, int, string>> {
 protected:
 	solution sol;
-	inputProcessUtility utility;
 };
 
 TEST_P(SolutionMultipleParametersTests, solutionTwoSums){
 	string input = std::get<0>(GetParam());
-	vector<int> nums = utility.convertToInt(utility.buildOneDimensionalArray(input));
+	vector<int> nums = buildOneDimensionalArray<int>(input);
 	int n = std::get<1>(GetParam());
 
 	string expected = std::get<2>(GetParam());
-	ASSERT_EQ(expected, utility.serializeToString(sol.twoSum(nums, n)));
+	ASSERT_EQ(expected, serializeToString<int>(sol.twoSum(nums, n)));
 }
 
 INSTANTIATE_TEST_SUITE_P(
