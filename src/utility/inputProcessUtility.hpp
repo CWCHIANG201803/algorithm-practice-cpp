@@ -65,7 +65,7 @@ string serializeToString(vector<vector<T>> input){
         out << token_outside << "[";
         string token_inside = "";
         for(int j = 0 ; j < input[i].size(); ++j){
-            out << token_inside << to_string(input[i][j]);
+            out << token_inside << input[i][j];
             token_inside = ",";
         }
         out << "]";
@@ -82,7 +82,7 @@ string serializeToString(vector<T> input){
     string token_inside = "";
     out << "[";
     for(int i = 0 ; i < input.size(); ++i){    
-        out << token_inside << to_string(input[i]);
+        out << token_inside << input[i];
         token_inside = ",";
     }
     out << "]";
