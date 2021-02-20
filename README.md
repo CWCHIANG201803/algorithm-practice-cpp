@@ -9,7 +9,7 @@ and check the correctness by running unit test powered by
 
 ## Prerequisite to execute this tempalte
 	1. operating system: Windows, Ubuntu 16.04LTS, or MACOS BigSur 11.1
-	2. C++ standard : C++ 11 or above
+	2. C++ standard : C++ 17 or above
 	3. shell script : 
 		(1) Unix-like : bash 4.x
 		(2) windows : mintty 3.2.0
@@ -39,7 +39,7 @@ $ ./run.sh
 
 To execute unit test, at the root directory, run
 ```
-$./run.sh teset
+$./run.sh test
 ```
 
 method 2 - run via vscode
