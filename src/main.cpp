@@ -1,22 +1,15 @@
 #include <iostream>
 #include "solution/solution.hpp"
-#include "binaryTreeUtility/binaryTreeUtility.hpp"
+#include "../utility/utility.hpp"
+#include "../resources/TreeNode.hpp"
 using namespace std;
 
 
-void display(TreeNode* root){
-    if(!root) 
-        return;
-    
-    display(root->left);
-    cout << root->val << endl;;
-    display(root->right);
-}
-
 int main(int argc, char* argv[]){
-    binaryTreeUtility utility;
-    string tree = "[1,2,3]";
-    TreeNode* root = utility.buildBinaryTreeByLevelOrder(tree);
-    display(root);
+    
+    string input = "[1,2,3,4,null,6,7]";
+    TreeNode* root = buildBinaryTreeByLevelOrder(input);
+    displayBinaryTree(root, Option::INORDER);
+
     return 0;
 }

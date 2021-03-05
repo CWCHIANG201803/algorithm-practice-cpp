@@ -7,7 +7,6 @@ target_link_libraries(
     unit_tests
     gtest_main
 		solution
-		binaryTreeUtility
     )
 
 add_test(
