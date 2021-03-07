@@ -14,15 +14,34 @@ vector<T> buildOneDimensionalArray(string input){
 
     vector<T> res;
     while(std::getline(iss, val, ',')){
-      if constexpr (std::is_same_v<T, char>){
-          res.push_back(val.front());
-      }else if constexpr (std::is_same_v<T, int>){
-          res.push_back(stoi(val));
-      }else if constexpr (std::is_same_v<T, string>){
-          res.push_back(val);
-      }
+
+        if constexpr (std::is_same_v<T, char>){
+            res.push_back(val.front());
+        }else if constexpr (std::is_same_v<T, int>){
+            res.push_back(stoi(val));
+        }else if constexpr (std::is_same_v<T, string>){
+            res.push_back(val);
+        }
     }
+
     return res;
+}
+
+vector<string> parseArguments(string input){
+
+    vector<string> tmp = buildOneDimensionalArray<string>(input);
+    
+    vector<string> ans;
+    for(int i = 0 ; i < tmp.size(); ++i){
+        if(tmp[i].front()=='[' && tmp[i].back()==']'){
+            ans.push_back(tmp[i]);
+        }else{
+            ans.push_back(tmp[i] + "," + tmp[i+1]);
+            i++;
+        }
+    }
+
+    return ans;
 }
 
 template<typename T>
