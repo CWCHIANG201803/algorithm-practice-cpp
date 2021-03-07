@@ -1,6 +1,6 @@
 add_executable(unit_tests test.cpp)
 
-target_link_libraries(unit_tests gtest_main LFUCache)
+target_link_libraries(unit_tests gtest_main WordDistance)
 
 add_test(
   NAME

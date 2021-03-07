@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "../solution/LFUCache.hpp"
+#include "../solution/WordDistance.hpp"
 #include "../utility/utility.hpp"
 #include <vector>
 #include <string>
@@ -10,14 +10,13 @@ using namespace std;
 
 class SolutionMultipleParametersTests : public ::testing::TestWithParam<std::tuple<string, string, string>> {
 protected:
-	LFUCache* obj;
+	WordDistance* obj;
 	string act(vector<string> commands, vector<string> inputs);
 private:
-	enum Action { init, get, put };
+	enum Action { init, shortest };
 	unordered_map<string, Action> dict{ 
-		{ "LFUCache", Action::init }, 
-		{ "get", Action::get },
-		{ "put", Action::put }
+		{ "WordDistance", Action::init }, 
+		{ "shortest", Action::shortest }
 	};
 };
 
@@ -28,41 +27,33 @@ string SolutionMultipleParametersTests::act(vector<string> commands, vector<stri
 
 	for(int i = 0 ; i < n; ++i){
 		string command = commands[i];
-		vector<int> args = buildOneDimensionalArray<int>(inputs[i]);
+		vector<string> args = parseArguments(inputs[i]);
 
 		Action action = dict[command];
-
-		int capacity, getVal, idx, putKey, putVal;
+		vector<string> words;
+		string word1, word2;
 
 		switch (action)
 		{
 		case Action::init:
-			capacity = args[0];
-			obj = new LFUCache(capacity);
+			words = buildOneDimensionalArray<string>(args[0]);
+			obj = new WordDistance(words);
 			result.push_back("null");
 			break;
-		case Action::get:
-			getVal = args[0];
-			result.push_back(to_string(obj->get(getVal)));
-			break;
-		case Action::put:
-			putKey = args[0];
-			putVal = args[1];
-			obj->put(putKey, putVal);
-			result.push_back("null");
+		case Action::shortest:
+			word1 = args[0];
+			word2 = args[1];
+			result.push_back(to_string(obj->shortest(word1, word2)));
 			break;
 		default:
 			break;
 		}
 
 	}
-
-	
-
 	return serializeToString<string>(result);
 }
 
-TEST_P(SolutionMultipleParametersTests, SolutionLFUCache){
+TEST_P(SolutionMultipleParametersTests, SolutionWordDistance){
 	string i1 = std::get<0>(GetParam());
 	vector<string> cmds = buildOneDimensionalArray<string>(i1);
 
@@ -76,11 +67,11 @@ TEST_P(SolutionMultipleParametersTests, SolutionLFUCache){
 }
 
 INSTANTIATE_TEST_SUITE_P(
-	lfucacheTestProvider,
+	wordDistanceTestProvider,
 	SolutionMultipleParametersTests,
 	::testing::Values(
-		std::make_tuple("[LFUCache,put,put,get,put,get,get,put,get,get,get]",
-		"[[2],[1,1],[2,2],[1],[3,3],[2],[3],[4,4],[1],[3],[4]]",
+		std::make_tuple("[WordDistance,shortest,shortest]",
+		"[[[practice,makes,perfect,coding,makes]],[coding,practice],[makes,coding]]",
 		"[null,null,null,1,null,-1,3,null,-1,3,4]")
 	));
 

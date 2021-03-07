@@ -1,8 +1,9 @@
 #include <iostream>
-#include "solution/LFUCache.hpp"
+#include "solution/WordDistance.hpp"
 using namespace std;
 
 int main(int argc, char* argv[]){
-    LFUCache* obj = new LFUCache(2);
+
+    
     return 0;
 }

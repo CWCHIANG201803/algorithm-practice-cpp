@@ -4,11 +4,26 @@
 #include <sstream>
 using namespace std;
 
+
+void trimBracket(string& str, bool trimOnce){
+
+    int count = trimOnce ? 1 : INT_MAX;
+
+    while(str.front()=='[' && str.back()==']' && count > 0){
+        str = str.substr(1, str.length()-2);
+        count--;
+    }
+}
+
+
 template<typename T>
 vector<T> buildOneDimensionalArray(string input){
     if(input.empty())
         return {};
-    string str = input.substr(1, input.size()-2);
+    string str = input;
+
+    trimBracket(str, true);
+
     istringstream iss(str);
     string val;
 
@@ -29,15 +44,27 @@ vector<T> buildOneDimensionalArray(string input){
 
 vector<string> parseArguments(string input){
 
-    vector<string> tmp = buildOneDimensionalArray<string>(input);
+    string str = input;
+
+    vector<string> tmp = buildOneDimensionalArray<string>(str);
     
+    
+    if(tmp.front().front() !='[' && tmp.back().back() != ']')
+        return tmp;
+
+
     vector<string> ans;
-    for(int i = 0 ; i < tmp.size(); ++i){
+    for(int i = 0 ; i < tmp.size();){
         if(tmp[i].front()=='[' && tmp[i].back()==']'){
             ans.push_back(tmp[i]);
-        }else{
-            ans.push_back(tmp[i] + "," + tmp[i+1]);
             i++;
+        }else{
+            string result;
+            while(tmp[i].back()!=']'){
+                result = result + tmp[i++] + ",";
+            }
+            result += tmp[i++];
+            ans.push_back(result);
         }
     }
 

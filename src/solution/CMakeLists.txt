@@ -1,17 +1,17 @@
-add_library(LFUCache "")
+add_library(WordDistance "")
 
 target_sources(
-    LFUCache
+    WordDistance
     PRIVATE
-        LFUCache.cpp
+    WordDistance.cpp
     PUBLIC
-        ${CMAKE_CURRENT_LIST_DIR}/LFUCache.hpp
+        ${CMAKE_CURRENT_LIST_DIR}/WordDistance.hpp
     )
 
 message(STATUS "the cmake current list dir is ${CMAKE_CURRENT_LIST_DIR}")
 
 target_include_directories(
-    LFUCache
+    WordDistance
     PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}
     )
