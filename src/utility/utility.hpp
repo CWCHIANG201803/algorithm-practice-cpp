@@ -32,6 +32,48 @@ vector<T> buildOneDimensionalArray(string input){
 }
 
 template<typename T>
+string serializeToString(vector<vector<T>> input){
+    stringstream out;
+    string token_outside = "";
+    out << "[";
+    for(int i = 0 ; i < input.size(); ++i){    
+        out << token_outside << "[";
+        string token_inside = "";
+        for(int j = 0 ; j < input[i].size(); ++j){
+			if constexpr (std::is_same_v<T, string>){
+				out << token_inside << input[i][j];
+			}else {
+            	out << token_inside << to_string(input[i][j]);
+			}
+            token_inside = ",";
+        }
+        out << "]";
+        token_outside = ",";
+    }
+    out << "]";
+
+    return out.str();
+}
+
+template<typename T>
+string serializeToString(vector<T> input){
+    stringstream out;
+    string token_inside = "";
+    out << "[";
+    for(int i = 0 ; i < input.size(); ++i){   
+		if constexpr (std::is_same_v<T, string>){
+			out << token_inside << input[i];
+		}else {
+			out << token_inside << to_string(input[i]);
+		}
+        token_inside = ",";
+    }
+    out << "]";
+
+    return out.str();
+}
+
+template<typename T>
 vector<vector<T>> buildTwoDimensionalArray(string input){
      string str = input.substr(1,input.length()-2);
     if(str.empty())
@@ -123,7 +165,7 @@ TreeNode* buildBinaryTreeByLevelOrder(string& input){
 	return root;
 }
 
-void displayBinaryTree(TreeNode* node, Option option)
+string outputBinaryTree(TreeNode* node, Option option)
 {
 
 	auto preorder = [](TreeNode* root, vector<string>& data) {
@@ -244,45 +286,6 @@ void displayBinaryTree(TreeNode* node, Option option)
 		break;
 	}
 
-	string token = "";
-	cout << "[";
-	for (auto x : data) {
-		cout << token << x;
-		token = ",";
-	}
-	cout << "]";
+	return serializeToString<string>(data);
 }
 
-template<typename T>
-string serializeToString(vector<vector<T>> input){
-    stringstream out;
-    string token_outside = "";
-    out << "[";
-    for(int i = 0 ; i < input.size(); ++i){    
-        out << token_outside << "[";
-        string token_inside = "";
-        for(int j = 0 ; j < input[i].size(); ++j){
-            out << token_inside << to_string(input[i][j]);
-            token_inside = ",";
-        }
-        out << "]";
-        token_outside = ",";
-    }
-    out << "]";
-
-    return out.str();
-}
-
-template<typename T>
-string serializeToString(vector<T> input){
-    stringstream out;
-    string token_inside = "";
-    out << "[";
-    for(int i = 0 ; i < input.size(); ++i){    
-        out << token_inside << to_string(input[i]);
-        token_inside = ",";
-    }
-    out << "]";
-
-    return out.str();
-}

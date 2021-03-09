@@ -9,7 +9,6 @@ int main(int argc, char* argv[]){
     
     string input = "[1,2,3,4,null,6,7]";
     TreeNode* root = buildBinaryTreeByLevelOrder(input);
-    displayBinaryTree(root, Option::INORDER);
 
     return 0;
 }
