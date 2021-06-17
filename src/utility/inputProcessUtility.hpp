@@ -14,20 +14,20 @@ vector<T> buildOneDimensionalArray(string input){
 
     vector<T> res;
     while(std::getline(iss, val, ',')){
-      if constexpr (std::is_same_v<T, char>){
-          res.push_back(val.front());
-      }else if constexpr (std::is_same_v<T, int>){
-          res.push_back(stoi(val));
-      }else if constexpr (std::is_same_v<T, string>){
-          res.push_back(val);
-      }
+        if constexpr (std::is_same_v<T, char>){
+            res.push_back(val.front());
+        }else if constexpr (std::is_same_v<T, int>){
+            res.push_back(stoi(val));
+        }else if constexpr (std::is_same_v<T, string>){
+            res.push_back(val);
+        }
     }
     return res;
 }
 
 template<typename T>
 vector<vector<T>> buildTwoDimensionalArray(string input){
-     string str = input.substr(1,input.length()-2);
+    string str = input.substr(1,input.length()-2);
     if(str.empty())
         return {};
     
@@ -81,12 +81,18 @@ string serializeToString(vector<T> input){
     stringstream out;
     string token_inside = "";
     out << "[";
+    string out_rep = "";
     for(int i = 0 ; i < input.size(); ++i){    
-        out << token_inside << input[i];
+        if constexpr (std::is_same_v<T, bool>){
+            out_rep = input[i] ? "true" : "false";
+        }else{
+            out_rep = to_string(input[i]);
+        }
+        out << token_inside << out_rep;
+        
         token_inside = ",";
     }
     out << "]";
-
     return out.str();
 }
 
