@@ -85,9 +85,12 @@ string serializeToString(vector<T> input){
     for(int i = 0 ; i < input.size(); ++i){    
         if constexpr (std::is_same_v<T, bool>){
             out_rep = input[i] ? "true" : "false";
+        }else if constexpr (std::is_same_v<T, string>){
+            out_rep = input[i];
         }else{
             out_rep = to_string(input[i]);
         }
+
         out << token_inside << out_rep;
         
         token_inside = ",";
