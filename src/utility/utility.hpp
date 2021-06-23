@@ -47,7 +47,7 @@ vector<string> parseArguments(string input){
     string str = input;
 
     vector<string> tmp = buildOneDimensionalArray<string>(str);
-    
+    if(tmp.empty()) return {};
     
     if(tmp.front().front() !='[' && tmp.back().back() != ']')
         return tmp;
