@@ -4,5 +4,5 @@ using namespace std;
 
 class solution {
 public:
-	bool hasCycle(ListNode*);
+	ListNode* swapPairs(ListNode* head);
 };

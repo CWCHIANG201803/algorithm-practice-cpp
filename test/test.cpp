@@ -1,30 +1,29 @@
-#include "../src/singularLinkedListUtility/singularLinkedListUtility.hpp"
+#include "../src/utility/utility.hpp"
 #include "../src/solution/solution.hpp"
 #include "gtest/gtest.h"
 
-class SolutionMultipleParametersTests : public ::testing::TestWithParam<std::tuple<string, int, bool>>
+
+// ListNode* swapPairs(ListNode* head);
+
+class SolutionMultipleParametersTests : public ::testing::TestWithParam<std::tuple<string,string>>
 {
 protected:
-	singularLinkedListUtility utility;
 	solution sol;
 };
 
-TEST_P(SolutionMultipleParametersTests, solutionHasCycle)
+TEST_P(SolutionMultipleParametersTests, solutionSwapPairs)
 {
-	string input = std::get<0>(GetParam());
-	int pos = std::get<1>(GetParam());
-	ListNode *inputLinkedList = utility.stringToCircularList(input, pos);
-	bool expected = std::get<2>(GetParam());
 
-	ASSERT_EQ(expected, sol.hasCycle(inputLinkedList));
+	ListNode* head = buildSingularLinkedList(std::get<0>(GetParam()));
+	string expected = std::get<1>(GetParam());
+	ASSERT_EQ(expected, outputSingularLinkedList(sol.swapPairs(head)));
 }
 
 INSTANTIATE_TEST_SUITE_P(
-	hasCycleSolutionTest,
+	swapPairsSolutionTest,
 	SolutionMultipleParametersTests,
 	::testing::Values(
-		std::make_tuple("[3,2,0,-4,7,8]", 2, true),
-		std::make_tuple("[1,2]", 0, true),
-		std::make_tuple("[2,3,0,4]", 3, true),
-		std::make_tuple("[2,3,0,4]", -1, false)
+		std::make_tuple("[1,2,3,4]", "[2,1,4,3]"),
+		std::make_tuple("[]","[]"),
+		std::make_tuple("[1]", "[1]")
 	));

@@ -1,5 +1,4 @@
 add_subdirectory(solution)
-add_subdirectory(singularLinkedListUtility)
 add_executable(main main.cpp)
 
-target_link_libraries(main solution singularLinkedListUtility)
+target_link_libraries(main solution)
